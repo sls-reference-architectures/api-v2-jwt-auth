@@ -1,0 +1,53 @@
+service: api-v2-jwt-auth
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: dev
+  httpApi:
+    authorizers:
+      jwtAuthorizer:
+        type: jwt
+        identitySource: $request.header.Authorization
+        issuerUrl: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_8LQOyJvaU
+        audience:
+          - 735asbo3u1uca5863omom97686
+          - 36is26mnlkj9k0erfbvi09g01m
+  environment:
+    NODE_ENV: ${self:custom.stage}
+  tags:
+    lumigo:auto-trace: true
+  lambdaHashingVersion: "20201221"
+
+plugins:
+  - serverless-plugin-typescript
+
+functions:
+  hello:
+    handler: src/helloHandler.default
+    events:
+      - httpApi:
+          method: GET
+          path: /hello
+          authorizer:
+            name: jwtAuthorizer
+  bonjour:
+    handler: src/helloHandler.default
+    events:
+      - httpApi:
+          method: GET
+          path: /bonjour
+          authorizer:
+            name: jwtAuthorizer
+            scopes:
+              - client-credentials-flow-demo/bonjour.read
+
+package:
+  patterns:
+    - config/**
+
+resources:
+  - ${file(infrastructure/cognito.yml)}

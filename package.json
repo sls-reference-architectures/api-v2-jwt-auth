@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf .build && npx tsc",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint '**.*.{ts,tsx}' --fix",
+    "prepare": "husky install",
+    "prettier": "npx prettier --write",
+    "test": "npm run lint && npx jest unit.test",
+    "test:e2e": "npx jest e2e.test  --config jest.config.e2e.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +21,53 @@
   "bugs": {
     "url": "https://github.com/sls-reference-architectures/api-v2-jwt-auth/issues"
   },
-  "homepage": "https://github.com/sls-reference-architectures/api-v2-jwt-auth#readme"
+  "homepage": "https://github.com/sls-reference-architectures/api-v2-jwt-auth#readme",
+  "devDependencies": {
+    "@aws-sdk/client-api-gateway": "^3.168.0",
+    "@aws-sdk/client-cloudformation": "^3.168.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.168.0",
+    "@tsconfig/node16": "^1.0.3",
+    "@types/aws-lambda": "^8.10.103",
+    "@types/aws4": "^1.11.2",
+    "@types/axios": "^0.14.0",
+    "@types/faker": "^5.5.3",
+    "@types/http-errors": "^1.8.2",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^18.7.16",
+    "@types/qs": "^6.9.7",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "esbuild": "^0.14.27",
+    "esbuild-jest": "^0.5.0",
+    "eslint": "^8.12.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^16.2.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-no-only-tests": "^3.0.0",
+    "faker": "^5.5.3",
+    "husky": "^7.0.2",
+    "jest": "^27.5.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "serverless": "^3.7.9",
+    "serverless-deployment-bucket": "^1.5.2",
+    "serverless-esbuild": "^1.26.1",
+    "serverless-iam-roles-per-function": "^3.2.0",
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "@dazn/lambda-powertools-logger": "^1.28.1",
+    "@middy/core": "^3.3.1",
+    "axios": "^0.26.1",
+    "http-errors": "^2.0.0",
+    "joi": "^17.6.0",
+    "qs": "^6.11.0",
+    "ulid": "^2.3.0"
+  },
+  "lint-staged": {
+    "*.{js,ts}": "eslint --cache --fix",
+    "*.{js,md,ts}": "prettier --write --ignore-path .gitignore"
+  }
 }

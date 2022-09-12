@@ -1,0 +1,73 @@
+Resources:
+  HttpApiAuthUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: httpApiAuth-${self:custom.stage}
+
+  HttpApiAuthUserPoolDomainName:
+    Type: AWS::Cognito::UserPoolDomain
+    Properties:
+      Domain: ra-http-api-auth-${self:custom.stage}
+      UserPoolId: !Ref HttpApiAuthUserPool
+
+  HttpApiAuthUserPoolResourceServer:
+    Type: AWS::Cognito::UserPoolResourceServer
+    Properties:
+      UserPoolId: !Ref HttpApiAuthUserPool
+      Identifier: client-credentials-flow-demo
+      Name: Resource server for the reference architecture demonstrating jwt auth with HTTP API
+      Scopes:
+        - ScopeName: hello.read
+          ScopeDescription: Allows user read-only access to the hello resource
+        - ScopeName: hello.write
+          ScopeDescription: Allows user full write access to the hello resource
+        - ScopeName: bonjour.read
+          ScopeDescription: Allows user read-only access to the bonjour resource
+        - ScopeName: bonjour.write
+          ScopeDescription: Allows user full write access to the bonjour resource
+
+  HttpApiAuthIntegrationTestClient:
+    Type: AWS::Cognito::UserPoolClient
+    DependsOn: HttpApiAuthUserPoolResourceServer
+    Properties:
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthFlows:
+        - client_credentials
+      AllowedOAuthScopes:
+        - client-credentials-flow-demo/hello.read
+        - client-credentials-flow-demo/hello.write
+        - client-credentials-flow-demo/bonjour.read
+        - client-credentials-flow-demo/bonjour.write
+      ExplicitAuthFlows:
+        - ALLOW_REFRESH_TOKEN_AUTH
+      ClientName: HttpApiAuthIntegrationTestClient
+      GenerateSecret: true
+      PreventUserExistenceErrors: ENABLED
+      UserPoolId: !Ref HttpApiAuthUserPool
+
+  BonjourlessIntegrationTestClient:
+    Type: AWS::Cognito::UserPoolClient
+    DependsOn: HttpApiAuthUserPoolResourceServer
+    Properties:
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthFlows:
+        - client_credentials
+      AllowedOAuthScopes:
+        - client-credentials-flow-demo/hello.read
+      ExplicitAuthFlows:
+        - ALLOW_REFRESH_TOKEN_AUTH
+      ClientName: BonjourlessIntegrationTestClient
+      GenerateSecret: true
+      PreventUserExistenceErrors: ENABLED
+      UserPoolId: !Ref HttpApiAuthUserPool
+
+Outputs:
+  HttpApiAuthUserPoolId:
+    Description: The Cognito user pool for API access
+    Value: !Ref HttpApiAuthUserPool
+  ScopedTestClientId:
+    Description: The client id that has full scopes
+    Value: !Ref HttpApiAuthIntegrationTestClient
+  UnScopedTestClientId:
+    Description: The client id that has no bonjour scopes
+    Value: !Ref BonjourlessIntegrationTestClient
