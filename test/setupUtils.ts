@@ -25,7 +25,7 @@ export const getRestServiceEndpoint = (stack: Stack) =>
   stack.Outputs?.find((o) => o.OutputKey === "ServiceEndpoint")?.OutputValue;
 
 export const getUserPoolId = (stack: Stack) =>
-  stack.Outputs?.find((o) => o.OutputKey === "HttpApiAuthUserPoolId")
+  stack.Outputs?.find((o) => o.OutputKey === "HttpApiAuthUserPool")
     ?.OutputValue;
 
 export const getScopedTestClientId = (stack: Stack) =>
