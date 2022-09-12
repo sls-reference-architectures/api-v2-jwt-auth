@@ -4,7 +4,7 @@ Resources:
     Properties:
       UserPoolName: httpApiAuth-${self:provider.stage}
 
-  HttpApiAuthUserPoolDomainName:
+  HttpApiAuthUserPoolDomain:
     Type: AWS::Cognito::UserPoolDomain
     Properties:
       Domain: ra-http-api-auth-${self:provider.stage}

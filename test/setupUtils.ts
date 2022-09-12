@@ -37,7 +37,7 @@ export const getUnScopedTestClientId = (stack: Stack) =>
     ?.OutputValue ?? "";
 
 const getUserPoolDomain = (stack: Stack) =>
-  stack.Outputs?.find((o) => o.OutputKey === "ApiV1AuthUserPoolDomain")
+  stack.Outputs?.find((o) => o.OutputKey === "HttpApiAuthUserPoolDomain")
     ?.OutputValue ?? "";
 
 export const getApiKey = async (name: string) => {
