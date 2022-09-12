@@ -65,6 +65,9 @@ Outputs:
   HttpApiAuthUserPoolId:
     Description: The Cognito user pool for API access
     Value: !Ref HttpApiAuthUserPool
+  HttpApiAuthUserPoolDomain:
+    Description: The user pool domain
+    Value: !Ref HttpApiAuthUserPoolDomain
   ScopedTestClientId:
     Description: The client id that has full scopes
     Value: !Ref HttpApiAuthIntegrationTestClient

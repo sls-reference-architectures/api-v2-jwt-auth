@@ -1,44 +1,36 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import {
-  CloudFormationClient,
-  DescribeStacksCommand,
-  Stack,
-} from "@aws-sdk/client-cloudformation";
+import { CloudFormationClient, DescribeStacksCommand, Stack } from '@aws-sdk/client-cloudformation';
 import {
   CognitoIdentityProviderClient,
   DescribeUserPoolClientCommand,
   DescribeUserPoolClientResponse,
-} from "@aws-sdk/client-cognito-identity-provider";
+} from '@aws-sdk/client-cognito-identity-provider';
 import {
   APIGatewayClient,
   GetApiKeysCommand,
   GetApiKeysCommandInput,
-} from "@aws-sdk/client-api-gateway";
-import axios, { AxiosRequestConfig } from "axios";
-import qs from "qs";
+} from '@aws-sdk/client-api-gateway';
+import axios, { AxiosRequestConfig } from 'axios';
+import qs from 'qs';
 
-const region = process.env.AWS_REGION || "us-east-1";
+const region = process.env.AWS_REGION || 'us-east-1';
 const cognitoClient = new CognitoIdentityProviderClient({ region });
 const apiGatewayClient = new APIGatewayClient({ region });
 
 export const getRestServiceEndpoint = (stack: Stack) =>
-  stack.Outputs?.find((o) => o.OutputKey === "ServiceEndpoint")?.OutputValue;
+  stack.Outputs?.find((o) => o.OutputKey === 'ServiceEndpoint')?.OutputValue;
 
 export const getUserPoolId = (stack: Stack) =>
-  stack.Outputs?.find((o) => o.OutputKey === "HttpApiAuthUserPool")
-    ?.OutputValue;
+  stack.Outputs?.find((o) => o.OutputKey === 'HttpApiAuthUserPoolId')?.OutputValue;
 
 export const getScopedTestClientId = (stack: Stack) =>
-  stack.Outputs?.find((o) => o.OutputKey === "ScopedTestClientId")
-    ?.OutputValue ?? "";
+  stack.Outputs?.find((o) => o.OutputKey === 'ScopedTestClientId')?.OutputValue ?? '';
 
 export const getUnScopedTestClientId = (stack: Stack) =>
-  stack.Outputs?.find((o) => o.OutputKey === "UnScopedTestClientId")
-    ?.OutputValue ?? "";
+  stack.Outputs?.find((o) => o.OutputKey === 'UnScopedTestClientId')?.OutputValue ?? '';
 
-const getUserPoolDomain = (stack: Stack) =>
-  stack.Outputs?.find((o) => o.OutputKey === "HttpApiAuthUserPoolDomain")
-    ?.OutputValue ?? "";
+export const getUserPoolDomain = (stack: Stack) =>
+  stack.Outputs?.find((o) => o.OutputKey === 'HttpApiAuthUserPoolDomain')?.OutputValue ?? '';
 
 export const getApiKey = async (name: string) => {
   const input: GetApiKeysCommandInput = {
@@ -51,34 +43,30 @@ export const getApiKey = async (name: string) => {
 };
 
 export const getScopedTestClientSecret = async (stack: Stack) => {
-  const { UserPoolClient }: DescribeUserPoolClientResponse =
-    await cognitoClient.send(
-      new DescribeUserPoolClientCommand({
-        UserPoolId: getUserPoolId(stack),
-        ClientId: getScopedTestClientId(stack),
-      })
-    );
+  const { UserPoolClient }: DescribeUserPoolClientResponse = await cognitoClient.send(
+    new DescribeUserPoolClientCommand({
+      UserPoolId: getUserPoolId(stack),
+      ClientId: getScopedTestClientId(stack),
+    }),
+  );
 
-  return UserPoolClient?.ClientSecret ?? "";
+  return UserPoolClient?.ClientSecret ?? '';
 };
 
 export const getUnscopedTestClientSecret = async (stack: Stack) => {
-  const { UserPoolClient }: DescribeUserPoolClientResponse =
-    await cognitoClient.send(
-      new DescribeUserPoolClientCommand({
-        UserPoolId: getUserPoolId(stack),
-        ClientId: getUnScopedTestClientId(stack),
-      })
-    );
+  const { UserPoolClient }: DescribeUserPoolClientResponse = await cognitoClient.send(
+    new DescribeUserPoolClientCommand({
+      UserPoolId: getUserPoolId(stack),
+      ClientId: getUnScopedTestClientId(stack),
+    }),
+  );
 
-  return UserPoolClient?.ClientSecret ?? "";
+  return UserPoolClient?.ClientSecret ?? '';
 };
 
 export const getStack = async (stackName: string): Promise<Stack> => {
   const cfn = new CloudFormationClient({ region });
-  const stackResult = await cfn.send(
-    new DescribeStacksCommand({ StackName: stackName })
-  );
+  const stackResult = await cfn.send(new DescribeStacksCommand({ StackName: stackName }));
   const stack = stackResult.Stacks?.[0];
   if (!stack) {
     throw new Error(`Couldn't find stack with name ${stackName}`);
@@ -87,9 +75,7 @@ export const getStack = async (stackName: string): Promise<Stack> => {
   return stack;
 };
 
-export const getScopedTestToken = async (
-  stack: Stack
-): Promise<AccessToken> => {
+export const getScopedTestToken = async (stack: Stack): Promise<AccessToken> => {
   const clientId = getScopedTestClientId(stack);
   const clientSecret = await getScopedTestClientSecret(stack);
   const userPoolDomain = getUserPoolDomain(stack);
@@ -97,9 +83,7 @@ export const getScopedTestToken = async (
   return getToken({ clientId, clientSecret, userPoolDomain });
 };
 
-export const getUnScopedTestToken = async (
-  stack: Stack
-): Promise<AccessToken> => {
+export const getUnScopedTestToken = async (stack: Stack): Promise<AccessToken> => {
   const clientId = getUnScopedTestClientId(stack);
   const clientSecret = await getUnscopedTestClientSecret(stack);
   const userPoolDomain = getUserPoolDomain(stack);
@@ -113,24 +97,20 @@ const getToken = async (input: {
   userPoolDomain: string;
 }) => {
   const { clientId, clientSecret, userPoolDomain } = input;
-  const body = { grant_type: "client_credentials" };
+  const body = { grant_type: 'client_credentials' };
   const options: AxiosRequestConfig = {
     auth: {
       username: clientId,
       password: clientSecret,
     },
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
     baseURL: `https://${userPoolDomain}.auth.${region}.amazoncognito.com`,
   };
   const {
-    data: {
-      access_token: accessToken,
-      expires_in: expiresIn,
-      token_type: tokenType,
-    },
-  } = await axios.post("/oauth2/token", qs.stringify(body), options);
+    data: { access_token: accessToken, expires_in: expiresIn, token_type: tokenType },
+  } = await axios.post('/oauth2/token', qs.stringify(body), options);
 
   return { accessToken, expiresIn, tokenType };
 };
