@@ -1,29 +1,10 @@
 service: api-v2-jwt-auth
 
 custom:
-  stage: ${opt:stage, self:provider.stage}
-
-provider:
-  name: aws
-  runtime: nodejs16.x
-  stage: dev
-  httpApi:
-    authorizers:
-      jwtAuthorizer:
-        type: jwt
-        identitySource: $request.header.Authorization
-        issuerUrl: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_8LQOyJvaU
-        audience:
-          - 735asbo3u1uca5863omom97686
-          - 36is26mnlkj9k0erfbvi09g01m
-  environment:
-    NODE_ENV: ${self:custom.stage}
-  tags:
-    lumigo:auto-trace: true
-  lambdaHashingVersion: "20201221"
-
-plugins:
-  - serverless-plugin-typescript
+  logRetentionInDays: 7
+  prune:
+    automatic: true
+    number: 1
 
 functions:
   hello:
@@ -45,9 +26,37 @@ functions:
             scopes:
               - client-credentials-flow-demo/bonjour.read
 
+
 package:
-  patterns:
-    - config/**
+  individually: true
+
+provider:
+  deploymentBucket:
+    name: com.reference-architecture.deploys
+    maxPreviousDeploymentArtifacts: 5
+    serverSideEncryption: AES256
+  httpApi:
+    authorizers:
+      jwtAuthorizer:
+        type: jwt
+        identitySource: $request.header.Authorization
+        issuerUrl: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_8LQOyJvaU
+        audience:
+          - 735asbo3u1uca5863omom97686
+          - 36is26mnlkj9k0erfbvi09g01m
+  name: aws
+  region: ${opt:region, 'us-east-1'}
+  runtime: nodejs16.x
+  stage: ${opt:stage, 'dev'}
+  tags:
+    lumigo:auto-trace: true
+
+plugins:
+  - serverless-esbuild
+  - serverless-deployment-bucket
+  - serverless-iam-roles-per-function
+  - serverless-plugin-log-retention
+  - serverless-prune-plugin
 
 resources:
   - ${file(infrastructure/cognito.yml)}
