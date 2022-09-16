@@ -42,8 +42,8 @@ provider:
         identitySource: $request.header.Authorization
         issuerUrl: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_8LQOyJvaU
         audience:
-          - 735asbo3u1uca5863omom97686
-          - 36is26mnlkj9k0erfbvi09g01m
+          - 5o8fjvmuq3durpmag321pv8h88
+          - 24kfk7q0n7frd1kne1tv6pas2b
   name: aws
   region: ${opt:region, 'us-east-1'}
   runtime: nodejs16.x

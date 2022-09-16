@@ -18,7 +18,7 @@ const cognitoClient = new CognitoIdentityProviderClient({ region });
 const apiGatewayClient = new APIGatewayClient({ region });
 
 export const getRestServiceEndpoint = (stack: Stack) =>
-  stack.Outputs?.find((o) => o.OutputKey === 'ServiceEndpoint')?.OutputValue;
+  stack.Outputs?.find((o) => o.OutputKey === 'HttpApiUrl')?.OutputValue;
 
 export const getUserPoolId = (stack: Stack) =>
   stack.Outputs?.find((o) => o.OutputKey === 'HttpApiAuthUserPoolId')?.OutputValue;

@@ -1,27 +1,16 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-import { getToken } from './authHelper';
-
 describe('When hitting a protected endpoint', () => {
   describe('with a valid, scoped JWT as bearer token', () => {
-    let scopedToken: string;
-
-    beforeAll(async () => {
-      const credentials = {
-        clientId: process.env.SCOPED_TEST_CLIENT_ID ?? '',
-        clientSecret: process.env.SCOPED_TEST_CLIENT_SECRET ?? '',
-      };
-      ({ accessToken: scopedToken } = await getToken(credentials));
-    });
-
     it('should succeed', async () => {
       // ARRANGE
       const axiosOptions: AxiosRequestConfig = {
         baseURL: process.env.API_URL,
         headers: {
-          Authorization: `Bearer ${scopedToken}`,
+          Authorization: `Bearer ${process.env.SCOPED_TEST_TOKEN}`,
         },
       };
+      console.log(axiosOptions);
 
       // ACT
       const { status } = await axios.get('/hello', axiosOptions);
@@ -32,22 +21,12 @@ describe('When hitting a protected endpoint', () => {
   });
 
   describe('with a valid, scoped JWT as api key (no Bearer)', () => {
-    let scopedToken: string;
-
-    beforeAll(async () => {
-      const credentials = {
-        clientId: process.env.SCOPED_TEST_CLIENT_ID ?? '',
-        clientSecret: process.env.SCOPED_TEST_CLIENT_SECRET ?? '',
-      };
-      ({ accessToken: scopedToken } = await getToken(credentials));
-    });
-
     it('should succeed', async () => {
       // ARRANGE
       const axiosOptions: AxiosRequestConfig = {
         baseURL: process.env.API_URL,
         headers: {
-          Authorization: scopedToken,
+          Authorization: `${process.env.SCOPED_TEST_TOKEN}`,
         },
       };
 
