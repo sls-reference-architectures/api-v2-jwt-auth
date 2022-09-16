@@ -10,7 +10,6 @@ describe('When hitting a protected endpoint', () => {
           Authorization: `Bearer ${process.env.SCOPED_TEST_TOKEN}`,
         },
       };
-      console.log(axiosOptions);
 
       // ACT
       const { status } = await axios.get('/hello', axiosOptions);

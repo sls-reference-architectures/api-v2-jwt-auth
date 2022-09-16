@@ -22,7 +22,7 @@ const createEmptyContext = (): Context => ({
   done: emptyFunction,
   fail: emptyFunction,
   succeed: emptyFunction,
-  getRemainingTimeInMillis: () => 43,
+  getRemainingTimeInMillis: () => 42,
 });
 
 const emptyFunction = () => null;
