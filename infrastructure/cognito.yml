@@ -2,12 +2,12 @@ Resources:
   HttpApiAuthUserPool:
     Type: AWS::Cognito::UserPool
     Properties:
-      UserPoolName: httpApiAuth-${self:provider.stage}
+      UserPoolName: ${self:service}-${self:provider.stage}
 
   HttpApiAuthUserPoolDomain:
     Type: AWS::Cognito::UserPoolDomain
     Properties:
-      Domain: api-v2-jwt-auth-${self:provider.stage}
+      Domain: ${self:service}-${self:provider.stage}
       UserPoolId: !Ref HttpApiAuthUserPool
 
   HttpApiAuthUserPoolResourceServer:
