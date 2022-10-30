@@ -10,6 +10,7 @@
     "lint:fix": "eslint '**.*.{ts,tsx}' --fix",
     "prepare": "husky install",
     "prettier": "npx prettier --write",
+    "remove": "npx sls remove",
     "test": "npm run lint && npx jest unit.test",
     "test:e2e": "npx jest e2e.test  --config jest.config.e2e.js"
   },
