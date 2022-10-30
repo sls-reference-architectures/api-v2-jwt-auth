@@ -13,18 +13,18 @@ functions:
       - httpApi:
           method: GET
           path: /hello
-          # authorizer:
-          #   name: jwtAuthorizer
+          authorizer:
+            name: jwtAuthorizer
   bonjour:
     handler: src/helloHandler.default
     events:
       - httpApi:
           method: GET
           path: /bonjour
-          # authorizer:
-          #   name: jwtAuthorizer
-          #   scopes:
-          #     - client-credentials-flow-demo/bonjour.read
+          authorizer:
+            name: jwtAuthorizer
+            scopes:
+              - client-credentials-flow-demo/bonjour.read
 
 
 package:
@@ -35,15 +35,15 @@ provider:
     name: com.reference-architecture.deploys
     maxPreviousDeploymentArtifacts: 5
     serverSideEncryption: AES256
-  # httpApi:
-  #   authorizers:
-  #     jwtAuthorizer:
-  #       type: jwt
-  #       identitySource: $request.header.Authorization
-  #       issuerUrl: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Fr7M4jeVM
-  #       audience:
-  #         - 5o8fjvmuq3durpmag321pv8h88
-  #         - 24kfk7q0n7frd1kne1tv6pas2b
+  httpApi:
+    authorizers:
+      jwtAuthorizer:
+        type: jwt
+        identitySource: $request.header.Authorization
+        issuerUrl: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_6sTyAz6FG
+        audience:
+          - 2vhsp03ghl5blivcgg9igrd44d
+          - 78gj39v80jjacour5l5ls1vaeu
   name: aws
   region: ${opt:region, 'us-east-1'}
   runtime: nodejs16.x
