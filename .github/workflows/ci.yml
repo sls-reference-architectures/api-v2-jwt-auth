@@ -34,7 +34,3 @@
             run: npm run test:e2e
             env:
               NODE_ENV: dev 
-          # The following is for my reference architecture stack only
-          - name: Remove stack from AWS
-            run: npm run remove
-              

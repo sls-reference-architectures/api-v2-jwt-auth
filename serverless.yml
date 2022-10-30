@@ -35,15 +35,15 @@ provider:
     name: com.reference-architecture.deploys
     maxPreviousDeploymentArtifacts: 5
     serverSideEncryption: AES256
-  httpApi:
-    authorizers:
-      jwtAuthorizer:
-        type: jwt
-        identitySource: $request.header.Authorization
-        issuerUrl: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Fr7M4jeVM
-        audience:
-          - 5o8fjvmuq3durpmag321pv8h88
-          - 24kfk7q0n7frd1kne1tv6pas2b
+  # httpApi:
+  #   authorizers:
+  #     jwtAuthorizer:
+  #       type: jwt
+  #       identitySource: $request.header.Authorization
+  #       issuerUrl: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Fr7M4jeVM
+  #       audience:
+  #         - 5o8fjvmuq3durpmag321pv8h88
+  #         - 24kfk7q0n7frd1kne1tv6pas2b
   name: aws
   region: ${opt:region, 'us-east-1'}
   runtime: nodejs16.x
