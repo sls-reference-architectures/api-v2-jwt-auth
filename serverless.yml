@@ -52,7 +52,7 @@ provider:
   runtime: nodejs18.x
   stage: ${opt:stage, 'dev'}
   tags:
-    lumigo:auto-trace: true
+    lumigo:auto-trace: 'true'
 
 plugins:
   - serverless-esbuild
