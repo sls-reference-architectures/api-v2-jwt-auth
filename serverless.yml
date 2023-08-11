@@ -51,6 +51,7 @@ provider:
   region: ${opt:region, 'us-east-1'}
   runtime: nodejs18.x
   stage: ${opt:stage, 'dev'}
+  logRetentionInDays: 7
   tags:
     lumigo:auto-trace: 'true'
 
