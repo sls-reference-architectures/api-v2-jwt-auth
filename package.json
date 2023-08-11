@@ -25,9 +25,9 @@
   },
   "homepage": "https://github.com/sls-reference-architectures/api-v2-jwt-auth#readme",
   "devDependencies": {
-    "@aws-sdk/client-api-gateway": "^3.199.0",
-    "@aws-sdk/client-cloudformation": "^3.199.0",
-    "@aws-sdk/client-cognito-identity-provider": "^3.199.0",
+    "@aws-sdk/client-api-gateway": "^3.388.0",
+    "@aws-sdk/client-cloudformation": "^3.388.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.388.0",
     "@tsconfig/node16": "^1.0.3",
     "@types/aws-lambda": "^8.10.108",
     "@types/aws4": "^1.11.2",
