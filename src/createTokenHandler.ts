@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 import { AccessToken, CreateTokenRequest } from './models';
 
@@ -18,7 +18,7 @@ const createToken = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
 
 const createTokenFromCognito = async (credentials: CreateTokenRequest): Promise<AccessToken> => {
   const body = { grant_type: 'client_credentials' };
-  const axiosOptions = {
+  const axiosOptions: AxiosRequestConfig = {
     auth: {
       username: credentials.clientId,
       password: credentials.clientSecret,
