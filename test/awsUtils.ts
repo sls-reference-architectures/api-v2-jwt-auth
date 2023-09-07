@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent, Context } from 'aws-lambda';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { ulid } from 'ulid';
 
 import { CreateTokenRequest } from '../src/models';
