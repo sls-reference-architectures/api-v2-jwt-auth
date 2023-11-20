@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/sls-reference-architectures/api-v2-jwt-auth#readme",
   "devDependencies": {
-    "@aws-sdk/client-api-gateway": "^3.441.0",
+    "@aws-sdk/client-api-gateway": "^3.454.0",
     "@aws-sdk/client-cloudformation": "^3.431.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.441.0",
     "@faker-js/faker": "^8.2.0",
