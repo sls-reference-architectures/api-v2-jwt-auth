@@ -34,7 +34,7 @@
     "@tsconfig/node18": "^18.2.2",
     "@types/aws-lambda": "^8.10.130",
     "@types/aws4": "^1.11.6",
-    "@types/http-errors": "^2.0.3",
+    "@types/http-errors": "^2.0.4",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.10.3",
     "@types/qs": "^6.9.11",
