@@ -63,7 +63,7 @@
   "dependencies": {
     "@dazn/lambda-powertools-logger": "^1.28.1",
     "@middy/core": "^4.7.0",
-    "axios": "^1.6.8",
+    "axios": "^1.7.2",
     "http-errors": "^2.0.0",
     "joi": "^17.13.1",
     "qs": "^6.12.1",
