@@ -29,7 +29,7 @@
     "@aws-sdk/client-cloudformation": "^3.624.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.637.0",
     "@faker-js/faker": "^8.4.1",
-    "@swc/core": "^1.7.6",
+    "@swc/core": "^1.7.35",
     "@swc/jest": "^0.2.36",
     "@tsconfig/node18": "^18.2.4",
     "@types/aws-lambda": "^8.10.145",
