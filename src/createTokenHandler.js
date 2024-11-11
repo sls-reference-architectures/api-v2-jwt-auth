@@ -1,13 +1,11 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import qs from 'qs';
-import { AccessToken, CreateTokenRequest } from './models';
 
 // TODO: move to config
 const UserPoolDomainUrl = `https://${process.env.USER_POOL_DOMAIN}.auth.${process.env.AWS_REGION}.amazoncognito.com`;
 
-const createToken = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const createTokenRequest = JSON.parse(event.body || '{}') as CreateTokenRequest;
+const createToken = async (event) => {
+  const createTokenRequest = JSON.parse(event.body || '{}');
   const token = await createTokenFromCognito(createTokenRequest);
 
   return {
@@ -16,9 +14,9 @@ const createToken = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
   };
 };
 
-const createTokenFromCognito = async (credentials: CreateTokenRequest): Promise<AccessToken> => {
+const createTokenFromCognito = async (credentials) => {
   const body = { grant_type: 'client_credentials' };
-  const axiosOptions: AxiosRequestConfig = {
+  const axiosOptions = {
     auth: {
       username: credentials.clientId,
       password: credentials.clientSecret,

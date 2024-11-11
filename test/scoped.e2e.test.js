@@ -1,10 +1,10 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 
 describe('When hitting a protected endpoint that requires a scope', () => {
   describe('with a scoped token', () => {
     it('should succeed', async () => {
       // ARRANGE
-      const axiosOptions: AxiosRequestConfig = {
+      const axiosOptions = {
         baseURL: process.env.API_URL,
         headers: {
           Authorization: `Bearer ${process.env.SCOPED_TEST_TOKEN}`,
@@ -33,7 +33,7 @@ describe('When hitting a protected endpoint that requires a scope', () => {
 
     it('should fail', async () => {
       // ARRANGE
-      const axiosOptions: AxiosRequestConfig = {
+      const axiosOptions = {
         baseURL: process.env.API_URL,
         headers: {
           Authorization: `Bearer ${process.env.UNSCOPED_TEST_TOKEN}`,

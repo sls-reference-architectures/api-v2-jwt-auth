@@ -1,12 +1,12 @@
-import validate from "../src/createTokenValidator";
+import validate from '../src/createTokenValidator';
 
-describe("When validating a create token body", () => {
-  describe("with a valid payload", () => {
-    it("should no-op", () => {
+describe('When validating a create token body', () => {
+  describe('with a valid payload', () => {
+    it('should no-op', () => {
       // ARRANGE
       const validPayload = {
-        clientId: "x",
-        clientSecret: "y",
+        clientId: 'x',
+        clientSecret: 'y',
       };
 
       // ACT
@@ -17,12 +17,12 @@ describe("When validating a create token body", () => {
     });
   });
 
-  describe("with a missing clientId", () => {
-    it("should throw BadRequest (400)", () => {
+  describe('with a missing clientId', () => {
+    it('should throw BadRequest (400)', () => {
       // ARRANGE
       const invalidPayload = {
-        clientId: "",
-        clientSecret: "y",
+        clientId: '',
+        clientSecret: 'y',
       };
 
       // ACT
@@ -34,12 +34,12 @@ describe("When validating a create token body", () => {
     });
   });
 
-  describe("with a missing clientSecret", () => {
-    it("should throw BadRequest (400)", () => {
+  describe('with a missing clientSecret', () => {
+    it('should throw BadRequest (400)', () => {
       // ARRANGE
       const invalidPayload = {
-        clientId: "x",
-        clientSecret: "",
+        clientId: 'x',
+        clientSecret: '',
       };
 
       // ACT
@@ -51,12 +51,12 @@ describe("When validating a create token body", () => {
     });
   });
 
-  describe("with both missing clientId & clientSecret", () => {
-    it("should throw BadRequest (400) with both names in msg", () => {
+  describe('with both missing clientId & clientSecret', () => {
+    it('should throw BadRequest (400) with both names in msg', () => {
       // ARRANGE
       const invalidPayload = {
-        clientId: "",
-        clientSecret: "",
+        clientId: '',
+        clientSecret: '',
       };
 
       // ACT
@@ -69,20 +69,20 @@ describe("When validating a create token body", () => {
     });
   });
 
-  describe("with an extra property attached", () => {
-    it("should strip it out", () => {
+  describe('with an extra property attached', () => {
+    it('should strip it out', () => {
       // ARRANGE
       const payloadWithExtraProp = {
-        clientId: "x",
-        clientSecret: "y",
-        extra: "z",
+        clientId: 'x',
+        clientSecret: 'y',
+        extra: 'z',
       };
 
       // ACT
       const result = validate(payloadWithExtraProp);
 
       // ASSERT
-      expect(result).not.toHaveProperty("extra");
+      expect(result).not.toHaveProperty('extra');
     });
   });
 });

@@ -1,8 +1,0 @@
-{
-  "extends": "@tsconfig/node18/tsconfig",
-  "compilerOptions": {
-    "declaration": true,
-    "outDir": ".build",
-    "sourceMap": true,
-  }
-}

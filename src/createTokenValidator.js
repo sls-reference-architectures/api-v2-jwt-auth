@@ -1,13 +1,12 @@
-import Joi from "joi";
-import { BadRequest } from "http-errors";
-import { CreateTokenRequest } from "./models";
+import Joi from 'joi';
+import { BadRequest } from 'http-errors';
 
 const schema = Joi.object({
   clientId: Joi.string().required(),
   clientSecret: Joi.string().required(),
 });
 
-const validate = (payload: CreateTokenRequest) => {
+const validate = (payload) => {
   const result = schema.validate(payload, {
     abortEarly: false,
     stripUnknown: true,

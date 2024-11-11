@@ -1,16 +1,12 @@
-import { APIGatewayProxyEvent, Context } from 'aws-lambda';
 import { faker } from '@faker-js/faker';
 import { ulid } from 'ulid';
 
-import { CreateTokenRequest } from '../src/models';
+const createApiGatewayEvent = (payload) => ({
+  body: JSON.stringify(payload),
+  headers: {},
+});
 
-const createApiGatewayEvent = (payload: CreateTokenRequest): APIGatewayProxyEvent =>
-  ({
-    body: JSON.stringify(payload),
-    headers: {},
-  } as APIGatewayProxyEvent);
-
-const createEmptyContext = (): Context => ({
+const createEmptyContext = () => ({
   callbackWaitsForEmptyEventLoop: true,
   functionName: faker.internet.domainName(),
   functionVersion: faker.system.semver(),
