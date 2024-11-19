@@ -30,7 +30,7 @@
     "@faker-js/faker": "^8.4.1",
     "@swc/core": "^1.7.36",
     "@swc/jest": "^0.2.37",
-    "@types/jest": "^29.5.12",
+    "@types/jest": "^29.5.14",
     "esbuild": "0.24.0",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
