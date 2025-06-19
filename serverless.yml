@@ -1,6 +1,6 @@
 service: api-v2-jwt-auth
 
-frameworkVersion: '3'
+frameworkVersion: 3.x
 
 custom:
   logRetentionInDays: 7
