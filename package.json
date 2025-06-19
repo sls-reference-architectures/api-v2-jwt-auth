@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "deploy": "npx sls deploy --conceal",
+    "deploy:app": "npx sls deploy --conceal",
+    "deploy:infra": " npx sls deploy --config serverless.infrastructure.yml --conceal",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
     "prettier": "npx prettier --write",
-    "teardown": "npx sls remove",
+    "teardown:app": "npx sls remove",
+    "teardown:infra": "npx sls remove --config serverless.infrastructure.yml",
     "test": "npm run lint && npx jest unit.test",
     "test:e2e": "npx jest e2e.test  --config jest.config.e2e.js"
   },

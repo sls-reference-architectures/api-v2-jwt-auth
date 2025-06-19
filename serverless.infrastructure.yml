@@ -1,0 +1,31 @@
+service: api-v2-jwt-auth-infra
+
+frameworkVersion: 3.x
+
+custom:
+  logRetentionInDays: 7
+  prune:
+    automatic: true
+    number: 1
+
+provider:
+  architecture: arm64
+  deploymentBucket:
+    name: com.reference-architecture.deploys
+    maxPreviousDeploymentArtifacts: 5
+    serverSideEncryption: AES256
+  name: aws
+  region: ${opt:region, 'us-east-1'}
+  runtime: nodejs22.x
+  stage: ${opt:stage, 'dev'}
+  logRetentionInDays: 7
+  tags:
+    lumigo:auto-trace: 'true'
+
+plugins:
+  - serverless-deployment-bucket
+  - serverless-plugin-log-retention
+  - serverless-prune-plugin
+
+resources:
+  - ${file(infrastructure/cognito.yml)}

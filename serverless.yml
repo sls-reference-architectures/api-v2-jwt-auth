@@ -43,10 +43,10 @@ provider:
       jwtAuthorizer:
         type: jwt
         identitySource: $request.header.Authorization
-        issuerUrl: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_6sTyAz6FG
+        issuerUrl: https://cognito-idp.us-east-1.amazonaws.com/${cf:api-v2-jwt-auth-infra-dev.HttpApiAuthUserPoolId}
         audience:
-          - 2vhsp03ghl5blivcgg9igrd44d
-          - 78gj39v80jjacour5l5ls1vaeu
+          - ${cf:api-v2-jwt-auth-infra-dev.ScopedTestClientId}
+          - ${cf:api-v2-jwt-auth-infra-dev.UnScopedTestClientId}
   name: aws
   region: ${opt:region, 'us-east-1'}
   runtime: nodejs22.x

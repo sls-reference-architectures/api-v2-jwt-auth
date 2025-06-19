@@ -34,11 +34,15 @@ jobs:
         with:
           aws-region: us-east-1
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-      - name: Deploy
-        run: npm run deploy
+      - name: Deploy infrastructure
+        run: npm run deploy:infra
+      - name: Deploy App
+        run: npm run deploy:app
       - name: Run E2E tests
         run: npm run test:e2e
         env:
           NODE_ENV: dev 
-      - name: Tear down stack
-        run: npm run teardown
+      - name: Tear down App stack
+        run: npm run teardown:app
+      - name: Tear down infrastructure stack
+        run: npm run teardown:infra
