@@ -61,6 +61,3 @@ plugins:
   - serverless-iam-roles-per-function
   - serverless-plugin-log-retention
   - serverless-prune-plugin
-
-resources:
-  - ${file(infrastructure/cognito.yml)}

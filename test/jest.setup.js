@@ -15,18 +15,21 @@ const region = process.env.AWS_REGION || 'us-east-1';
 const stage = process.env.STAGE || 'dev';
 
 const setup = async () => {
-  const stackName = `api-v2-jwt-auth-${stage}`;
+  const appStackName = `api-v2-jwt-auth-${stage}`;
+  const infraStackName = `api-v2-jwt-auth-infra-${stage}`;
+  const appStack = await getStack(appStackName);
+  const infraStack = await getStack(infraStackName);
 
-  const stack = await getStack(stackName);
-  const apiUrl = getApiUrl(stack);
-  const userPoolId = getUserPoolId(stack);
-  const userPoolDomain = getUserPoolDomain(stack);
-  const scopedTestClientId = getScopedTestClientId(stack);
-  const scopedTestClientSecret = await getScopedTestClientSecret(stack);
-  const scopedTestToken = await getScopedTestToken(stack);
-  const unscopedTestClientId = getUnScopedTestClientId(stack);
-  const unscopedTestClientSecret = await getUnscopedTestClientSecret(stack);
-  const unscopedTestToken = await getUnScopedTestToken(stack);
+  const apiUrl = getApiUrl(appStack);
+  const userPoolId = getUserPoolId(infraStack);
+  const userPoolDomain = getUserPoolDomain(infraStack);
+  const scopedTestClientId = getScopedTestClientId(infraStack);
+  const scopedTestClientSecret = await getScopedTestClientSecret(infraStack);
+  const scopedTestToken = await getScopedTestToken(infraStack);
+  console.log('scopedTestToken', scopedTestToken);
+  const unscopedTestClientId = getUnScopedTestClientId(infraStack);
+  const unscopedTestClientSecret = await getUnscopedTestClientSecret(infraStack);
+  const unscopedTestToken = await getUnScopedTestToken(infraStack);
 
   process.env.AWS_REGION = region;
   process.env.STAGE = stage;
@@ -40,6 +43,7 @@ const setup = async () => {
   process.env.UNSCOPED_TEST_CLIENT_ID = unscopedTestClientId;
   process.env.UNSCOPED_TEST_CLIENT_SECRET = unscopedTestClientSecret;
   process.env.UNSCOPED_TEST_TOKEN = unscopedTestToken.accessToken;
+  console.log(process.env);
 };
 
 export default setup;
