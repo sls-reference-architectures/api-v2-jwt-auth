@@ -4,7 +4,7 @@ frameworkVersion: '4'
 
 functions:
   hello:
-    handler: src/helloHandler.default
+    handler: src/helloHandler.handler
     events:
       - httpApi:
           method: GET
@@ -12,7 +12,7 @@ functions:
           authorizer:
             name: jwtAuthorizer
   bonjour:
-    handler: src/helloHandler.default
+    handler: src/helloHandler.handler
     events:
       - httpApi:
           method: GET
