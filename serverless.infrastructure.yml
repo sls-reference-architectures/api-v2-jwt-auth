@@ -10,7 +10,7 @@ provider:
     serverSideEncryption: AES256
   name: aws
   region: ${opt:region, 'us-east-1'}
-  runtime: nodejs22.x
+  runtime: nodejs24.x
   stage: ${opt:stage, 'dev'}
   logRetentionInDays: 7
   tags:
