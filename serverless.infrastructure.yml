@@ -2,12 +2,6 @@ service: api-v2-jwt-auth-infra
 
 frameworkVersion: '4'
 
-custom:
-  logRetentionInDays: 7
-  prune:
-    automatic: true
-    number: 1
-
 provider:
   architecture: arm64
   deploymentBucket:
@@ -21,10 +15,6 @@ provider:
   logRetentionInDays: 7
   tags:
     lumigo:auto-trace: 'true'
-
-plugins:
-  - serverless-plugin-log-retention
-  - serverless-prune-plugin
 
 resources:
   Resources:
