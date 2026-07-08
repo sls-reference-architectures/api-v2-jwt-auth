@@ -23,7 +23,6 @@ provider:
     lumigo:auto-trace: 'true'
 
 plugins:
-  - serverless-deployment-bucket
   - serverless-plugin-log-retention
   - serverless-prune-plugin
 
