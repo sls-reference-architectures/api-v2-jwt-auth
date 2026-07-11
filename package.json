@@ -20,7 +20,7 @@
     "url": "git+https://github.com/sls-reference-architectures/api-v2-jwt-auth.git"
   },
   "author": "Seth Orell",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/sls-reference-architectures/api-v2-jwt-auth/issues"
   },
