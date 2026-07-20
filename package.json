@@ -30,7 +30,7 @@
     "@aws-sdk/client-cloudformation": "^3.1068.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.1085.0",
     "@eslint/js": "^10.0.1",
-    "@faker-js/faker": "^9.8.0",
+    "@faker-js/faker": "^10.5.0",
     "@swc/core": "^1.15.43",
     "@swc/jest": "^0.2.38",
     "esbuild": "0.28.1",
