@@ -48,7 +48,7 @@
     "serverless-iam-roles-per-function": "^3.2.0"
   },
   "dependencies": {
-    "@dazn/lambda-powertools-logger": "^1.28.1",
+    "@aws-lambda-powertools/logger": "^2.34.0",
     "axios": "^1.18.1",
     "http-errors": "^2.0.0",
     "joi": "^18.2.3",

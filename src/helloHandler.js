@@ -1,7 +1,9 @@
-import Logger from '@dazn/lambda-powertools-logger';
+import { Logger } from '@aws-lambda-powertools/logger';
+
+const logger = new Logger({ serviceName: 'api-v2-jwt-auth' });
 
 export const handler = async (event) => {
-  Logger.debug('Hello JWT World!', { event });
+  logger.debug('Hello JWT World!', { event });
 
   return {
     status: 200,
