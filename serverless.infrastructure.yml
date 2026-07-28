@@ -13,8 +13,6 @@ provider:
   runtime: nodejs24.x
   stage: ${opt:stage, 'dev'}
   logRetentionInDays: 7
-  tags:
-    lumigo:auto-trace: 'true'
 
 resources:
   Resources:
