@@ -31,7 +31,7 @@
     "@aws-sdk/client-cognito-identity-provider": "^3.1090.0",
     "@eslint/js": "^10.0.1",
     "@faker-js/faker": "^9.8.0",
-    "@swc/core": "^1.15.46",
+    "@swc/core": "^1.15.47",
     "@swc/jest": "^0.2.38",
     "esbuild": "0.28.1",
     "eslint": "^10.7.0",
