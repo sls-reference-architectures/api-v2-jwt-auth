@@ -43,7 +43,3 @@ jobs:
         run: npm run test:e2e
         env:
           NODE_ENV: dev 
-      - name: Tear down App stack
-        run: npm run teardown:app
-      - name: Tear down infrastructure stack
-        run: npm run teardown:infra
