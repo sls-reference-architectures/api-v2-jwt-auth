@@ -22,7 +22,7 @@ const setup = async () => {
   const infraStack = await getStack(infraStackName);
 
   const apiUrl = getApiUrl(appStack);
-  await waitForApiReady(apiUrl);
+  await waitForApiReady({ apiUrl });
   const userPoolId = getUserPoolId(infraStack);
   const userPoolDomain = getUserPoolDomain(infraStack);
   const scopedTestClientId = getScopedTestClientId(infraStack);

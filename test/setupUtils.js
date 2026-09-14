@@ -110,7 +110,7 @@ const getToken = async ({ clientId, clientSecret, userPoolDomain }) => {
  * Poll until the API stops returning 404 so the E2E suites don't race the deploy.
  * Any other status (e.g. 401 from the authorizer) means the route is live.
  */
-export const waitForApiReady = async (apiUrl, { timeoutMs = 60000, intervalMs = 2000 } = {}) => {
+export const waitForApiReady = async ({ apiUrl, timeoutMs = 60000, intervalMs = 2000 }) => {
   const deadline = Date.now() + timeoutMs;
   let status;
   do {
