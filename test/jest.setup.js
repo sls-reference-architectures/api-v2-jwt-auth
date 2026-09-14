@@ -9,6 +9,7 @@ import {
   getUnScopedTestToken,
   getUserPoolDomain,
   getUserPoolId,
+  waitForApiReady,
 } from './setupUtils';
 
 const region = process.env.AWS_REGION || 'us-east-1';
@@ -21,6 +22,7 @@ const setup = async () => {
   const infraStack = await getStack(infraStackName);
 
   const apiUrl = getApiUrl(appStack);
+  await waitForApiReady(apiUrl);
   const userPoolId = getUserPoolId(infraStack);
   const userPoolDomain = getUserPoolDomain(infraStack);
   const scopedTestClientId = getScopedTestClientId(infraStack);

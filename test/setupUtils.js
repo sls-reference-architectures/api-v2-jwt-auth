@@ -103,3 +103,25 @@ const getToken = async ({ clientId, clientSecret, userPoolDomain }) => {
 
   return { accessToken, expiresIn, tokenType };
 };
+
+/**
+ * A freshly created HTTP API answers 404 for a few seconds while its routes and
+ * stage propagate (this happens on the first deploy after the weekly teardown).
+ * Poll until the API stops returning 404 so the E2E suites don't race the deploy.
+ * Any other status (e.g. 401 from the authorizer) means the route is live.
+ */
+export const waitForApiReady = async (apiUrl, { timeoutMs = 60000, intervalMs = 2000 } = {}) => {
+  const deadline = Date.now() + timeoutMs;
+  let status;
+  do {
+    ({ status } = await axios.get('/hello', { baseURL: apiUrl, validateStatus: () => true }));
+    if (status !== 404) {
+      return status;
+    }
+    await new Promise((resolve) => {
+      setTimeout(resolve, intervalMs);
+    });
+  } while (Date.now() < deadline);
+
+  throw new Error(`API at ${apiUrl} still returned 404 after ${timeoutMs}ms`);
+};
