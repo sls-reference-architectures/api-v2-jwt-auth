@@ -39,7 +39,7 @@
     "eslint-plugin-no-only-tests": "^3.4.0",
     "globals": "^17.11.0",
     "husky": "^9.1.7",
-    "jest": "^30.4.2",
+    "jest": "^30.5.2",
     "lint-staged": "^17.6.0",
     "osls": "^4.1.0",
     "prettier": "^3.9.6",
