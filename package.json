@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@aws-lambda-powertools/logger": "^2.35.0",
-    "axios": "^1.19.0",
+    "axios": "^1.20.0",
     "http-errors": "^2.0.0",
     "joi": "^18.2.9",
     "qs": "^6.16.0",
