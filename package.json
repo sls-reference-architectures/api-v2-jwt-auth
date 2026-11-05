@@ -50,7 +50,7 @@
     "@aws-lambda-powertools/logger": "^2.35.0",
     "axios": "^1.20.0",
     "http-errors": "^2.0.0",
-    "joi": "^18.2.9",
+    "joi": "^18.3.1",
     "qs": "^6.16.0",
     "ulid": "^3.0.1"
   },
